@@ -197,7 +197,7 @@ export default function Dashboard() {
             </Grid>
 
             {/* Chart */}
-            <Grid item>
+            <Grid item >
               <Paper className={fixedHeightPaper}>
                 <Chart genData={createData} data={data} />
               </Paper>
