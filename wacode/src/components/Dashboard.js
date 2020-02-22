@@ -104,10 +104,10 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9)
-    }
+    width: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -143,12 +143,9 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-        style={{ backgroundColor: "#154734", height: "10vh" }}
-      >
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}
+        style={{backgroundColor: "#154734", height: "10vh"}}>
+
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -174,7 +171,7 @@ export default function Dashboard() {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant="persistant"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
         }}

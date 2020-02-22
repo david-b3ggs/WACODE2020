@@ -4,7 +4,7 @@ import Dashboard from './Dashboard';
 export class Page extends Component {
     render() {
         return (
-            <div>
+            <div style={{backgroundColor: "gray"}}>
                 <Dashboard />
             </div>
         )
