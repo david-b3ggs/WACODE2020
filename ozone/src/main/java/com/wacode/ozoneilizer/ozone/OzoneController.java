@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.flowpowered.noise.NoiseQuality;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +32,10 @@ public class OzoneController {
 
         time=Integer.parseInt(requestParams.get("time"));
         //if(lat.contains(Double.parseDouble(requestParams.get("latitude"))) && lon.contains(Integer.parseInt(requestParams.get(longitude))))
+        int output = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(Double.parseDouble(requestParams.get("longitude")),Double.parseDouble(requestParams.get("latitude")), 1, time, NoiseQuality.BEST));
 
 
-
-        return new Greeting(counter.incrementAndGet(), com.flowpowered.noise.Noise.intValueNoise3D(Integer.parseInt(requestParams.get("longitude")),Integer.parseInt(requestParams.get("latitude")),1, time) % 101, String.valueOf(time));
+        return new Greeting(counter.incrementAndGet(),  output, String.valueOf(time));
 
     }
 
