@@ -17,12 +17,13 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import MainMap from './MainMap';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 //import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 
 function createData(xname, company, emission) {
-  return { xaxis: xname, c: company, e: emission  };
+  return { xaxis: xname, c: company, e: emission };
 }
 
 const data = [
@@ -132,7 +133,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -144,7 +145,8 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}
+        style={{backgroundColor: "#154734", height: "10vh"}}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -156,13 +158,8 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            ECOLOGI/NOMICAL
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -185,23 +182,28 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart genData={createData} data={data}/>
-              </Paper>
-              <Paper>
-                <Chart genData={createData} data={data}/>
-              </Paper>
+          <Grid container direction="column" justify="center" alignItems="center" spacing={5}>
+            <Grid item>
+                <MainMap />
             </Grid>
-            {/* Recent Orders */}
+
+
+          {/* Chart */}
+          <Grid item xs={12} md={8} lg={9}>
+            <Paper className={fixedHeightPaper}>
+              <Chart genData={createData} data={data} />
+            </Paper>
+            <Paper>
+              <Chart genData={createData} data={data} />
+            </Paper>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          {/* Recent Orders */}
+          </Grid>
+        <Box pt={4}>
+          <Copyright />
+        </Box>
         </Container>
       </main>
-    </div>
+    </div >
   );
 }
