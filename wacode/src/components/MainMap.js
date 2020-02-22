@@ -30,9 +30,9 @@ class MainMap extends Component {
 
     render() {
         return (
-            <div style={{ height: '50vh', width: '75vw' }}>
+            <div style={{ height: '70vh', width: '90vw' }}>
                 <GoogleMapReact ref={(el) => this._googleMap = el} 
-                    bootstrapURLKeys={{ key: "AIzaSyCbrPx3Z10EQN-SXXRMXs0Bd56v2zAaAd0" }}
+                    // bootstrapURLKeys={{ key: "AIzaSyCbrPx3Z10EQN-SXXRMXs0Bd56v2zAaAd0" }}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                     heatmapLibrary={true}

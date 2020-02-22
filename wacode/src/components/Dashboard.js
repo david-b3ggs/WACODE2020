@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
+    width: 0,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
@@ -144,7 +144,6 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}
         style={{backgroundColor: "#154734", height: "10vh"}}>
         <Toolbar className={classes.toolbar}>
@@ -163,7 +162,7 @@ export default function Dashboard() {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant="persistant"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
@@ -181,13 +180,11 @@ export default function Dashboard() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth="lg" className={classes.container} >
           <Grid container direction="column" justify="center" alignItems="center" spacing={5}>
             <Grid item>
                 <MainMap />
             </Grid>
-
-
           {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper className={fixedHeightPaper}>
