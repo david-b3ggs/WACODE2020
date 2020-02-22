@@ -195,22 +195,22 @@ export default function Dashboard() {
         <Container className={classes.container}>
           <Grid
             container
-            direction="column"
-            justify="center"
-            alignItems="center"
+            // direction="column"
+            // justify="center"
+            // alignItems="center"
             spacing={5}
           >
-            <Grid item>
+            <Grid item style={{width:"100%"}}>
               <MainMap />
             </Grid>
 
             {/* Chart */}
-            <Grid item>
+            <Grid item xs>
               <Paper className={fixedHeightPaper}>
                 <Chart genData={createData} data={data} />
               </Paper>
             </Grid>
-            <Grid item>
+            <Grid item xs>
               <Paper className={fixedHeightPaper}>
                 <Chart genData={createData} data={data} />
               </Paper>
