@@ -38,27 +38,12 @@ class MainMap extends Component {
             clickableIcons: false
         }
 
-    onMapClick({x, y, lat, lng, event}) {
+    /*onMapClick({x, y, lat, lng, event}) {
         if (this._googleMap !== undefined) {
           const point = new google.maps.LatLng(lat, lng)
           this._googleMap.heatmap.data.push(point)
         }
-      }
-
-      loadData () {
-        /*for (var city in citymap) {
-            // Add the circle for this city to the map.
-            var cityCircle = new google.maps.Circle({
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-              center: citymap[city].center,
-              radius: Math.sqrt(citymap[city].population) * 100
-            });
-          }*/
-      }
+    }*/
 
       componentDidMount() {
         var heatMapData = {    
@@ -81,7 +66,7 @@ class MainMap extends Component {
                     defaultZoom={this.props.zoom}
                     heatmapLibrary={true}
                     heatmap={this.state.data}
-                    onClick={this.onMapClick.bind(this)}
+                    //onClick={this.onMapClick.bind(this)}
                     mapTypeId="SATELLITE"
                     options={this.getMapOptions}
                     onGoogleApiLoaded={this.loadData}

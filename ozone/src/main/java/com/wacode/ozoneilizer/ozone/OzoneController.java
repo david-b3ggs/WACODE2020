@@ -29,13 +29,13 @@ public class OzoneController {
     @ResponseBody
     public Greeting sayHello(@RequestParam Map<String,String> requestParams) {
 
-
         time=Integer.parseInt(requestParams.get("time"));
         //if(lat.contains(Double.parseDouble(requestParams.get("latitude"))) && lon.contains(Integer.parseInt(requestParams.get(longitude))))
         int output = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(Double.parseDouble(requestParams.get("longitude")),Double.parseDouble(requestParams.get("latitude")), 1, time, NoiseQuality.BEST));
 
 
-        return new Greeting(counter.incrementAndGet(),  output, String.valueOf(time));
+
+        return new Greeting(counter.incrementAndGet(),  Math.abs(output), String.valueOf(time));
 
     }
 
