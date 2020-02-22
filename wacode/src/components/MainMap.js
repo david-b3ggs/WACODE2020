@@ -1,74 +1,48 @@
-import React from 'react';
-import ReactFC from 'react-fusioncharts';
-import FusionCharts from 'fusioncharts';
-import FusionMaps from 'fusioncharts/fusioncharts.maps';
-import World from 'fusioncharts/maps/fusioncharts.world';
-import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-ReactFC.fcRoot(FusionCharts, FusionMaps, World, FusionTheme);
+/* global google */
+import React, { Component } from 'react';
+import GoogleMapReact from 'google-map-react';
+import MenuIcon from '@material-ui/icons/Menu';
 
-const chartConfigs = {
-    type: 'world',
-    width: '800',
-    height: '550',
-    dataFormat: 'json',
-    dataSource: {
-        "chart": {
-                "caption": "Average Annual Population Growth",
-                "subcaption": " 1955-2015",
-                "numbersuffix": "%",
-                "includevalueinlabels": "1",
-                "labelsepchar": ": ",
-                "entityFillHoverColor": "#FFF9C4",
-                "theme": "fusion"
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+class MainMap extends Component {
+    static defaultProps = {
+        center: {
+            lat: 31.5,
+            lng: -97.14
         },
-        "colorrange": {
-            "minvalue": "0",
-            "code": "#FFE0B2",
-            "gradient": "1",
-            "color": [{
-                "minvalue": "0.5",
-                "maxvalue": "1.0",
-                "color": "#FFD74D"
-            }, {
-                "minvalue": "1.0",
-                "maxvalue": "2.0",
-                "color": "#FB8C00"
-            }, {
-                "minvalue": "2.0",
-                "maxvalue": "3.0",
-                "color": "#E65100"
-            }]
-        },
-        "data": [{
-            "id": "NA",
-            "value": ".82",
-            "showLabel": "1"
-        }, {
-            "id": "SA",
-            "value": "2.04",
-            "showLabel": "1"
-        }, {
-            "id": "AS",
-            "value": "1.78",
-            "showLabel": "1"
-        }, {
-            "id": "EU",
-            "value": ".40",
-            "showLabel": "1"
-        }, {
-            "id": "AF",
-            "value": "2.58",
-            "showLabel": "1"
-        }, {
-            "id": "AU",
-            "value": "1.30",
-            "showLabel": "1"
-        }]
+        zoom: 3
+    };
+
+    onMapClick({x, y, lat, lng, event}) {
+        if (this._googleMap !== undefined) {
+          const point = new google.maps.LatLng(lat, lng)
+          this._googleMap.heatmap.data.push(point)
+        }
+      }
+
+    heatMapData = {    
+        positions: [
+          {lat: 55.5, lng: 34.56},
+          {lat: 34.7, lng: 28.4},],
+          options: {radius: 20, opacity: 0.6}
+      }
+
+    render() {
+        return (
+            <div style={{ height: '50vh', width: '75vw' }}>
+                <GoogleMapReact ref={(el) => this._googleMap = el} 
+                    bootstrapURLKeys={{ key: "AIzaSyCbrPx3Z10EQN-SXXRMXs0Bd56v2zAaAd0" }}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}
+                    heatmapLibrary={true}
+                    heatmap={this.heatMapData}
+                    onClick={this.onMapClick.bind(this)}
+                >
+                </GoogleMapReact>
+            </div>
+        );
     }
 }
-export default function MainMap(){
-     return (
-     <ReactFC
-        {...chartConfigs} style={{width: "100vw"}}/>
-     );
-}
+
+export default MainMap;
