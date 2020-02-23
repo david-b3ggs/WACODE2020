@@ -20,7 +20,29 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MainMap from "./MainMap";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Chart from "./Chart";
-
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Label,
+  ResponsiveContainer,
+  Text,
+  PieChart,
+  Pie,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  Legend,
+  ScantterChart,
+  CartesianGrid,
+  ZAxis,
+  Tooltip,
+  Scatter,
+  ScatterChart
+} from "recharts";
 function createData(xname, company, emission) {
   return { xaxis: xname, c: company, e: emission };
 }
@@ -105,9 +127,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen
     }),
     width: 0,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9)
+    }
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -141,11 +163,170 @@ export default function Dashboard() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const data01 = [
+    {
+      name: "Group A",
+      value: Math.random()
+    },
+    {
+      name: "Group B",
+      value: Math.random()
+    },
+    {
+      name: "Group C",
+      value: Math.random()
+    },
+    {
+      name: "Group D",
+      value: Math.random()
+    },
+    {
+      name: "Group E",
+      value: Math.random()
+    },
+    {
+      name: "Group F",
+      value: Math.random()
+    }
+  ];
+  const data02 = [
+    {
+      name: "Group A",
+      value: Math.random()
+    },
+    {
+      name: "Group B",
+      value: Math.random()
+    },
+    {
+      name: "Group C",
+      value: Math.random()
+    },
+    {
+      name: "Group D",
+      value: Math.random()
+    },
+    {
+      name: "Group E",
+      value: Math.random()
+    },
+    {
+      name: "Group F",
+      value: Math.random()
+    }
+  ];
+
+  const radarData = [
+    {
+      subject: "Co2",
+      A: 120,
+      B: 110,
+      fullMark: 150
+    },
+    {
+      subject: "O3",
+      A: 98,
+      B: 130,
+      fullMark: 150
+    },
+    {
+      subject: "O2",
+      A: 86,
+      B: 130,
+      fullMark: 150
+    },
+    {
+      subject: "NO2",
+      A: 99,
+      B: 100,
+      fullMark: 150
+    },
+    {
+      subject: "Pb",
+      A: 85,
+      B: 90,
+      fullMark: 150
+    },
+    {
+      subject: "Sn",
+      A: 65,
+      B: 85,
+      fullMark: 150
+    }
+  ];
+
+  const data011 = [
+    {
+      x: 100,
+      y: 200,
+      z: 200
+    },
+    {
+      x: 120,
+      y: 100,
+      z: 260
+    },
+    {
+      x: 170,
+      y: 300,
+      z: 400
+    },
+    {
+      x: 140,
+      y: 250,
+      z: 280
+    },
+    {
+      x: 150,
+      y: 400,
+      z: 500
+    },
+    {
+      x: 110,
+      y: 280,
+      z: 200
+    }
+  ];
+  const data021 = [
+    {
+      x: 200,
+      y: 260,
+      z: 240
+    },
+    {
+      x: 240,
+      y: 290,
+      z: 220
+    },
+    {
+      x: 190,
+      y: 290,
+      z: 250
+    },
+    {
+      x: 198,
+      y: 250,
+      z: 210
+    },
+    {
+      x: 180,
+      y: 280,
+      z: 260
+    },
+    {
+      x: 210,
+      y: 220,
+      z: 230
+    }
+  ];
+
   return (
     <div className={classes.root}>
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}
-        style={{backgroundColor: "#154734", height: "10vh"}}>
-
+      <AppBar
+        position="absolute"
+        className={clsx(classes.appBar, open && classes.appBarShift)}
+        style={{ backgroundColor: "#154734", height: "10vh" }}
+      >
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
@@ -197,19 +378,93 @@ export default function Dashboard() {
             // alignItems="center"
             spacing={5}
           >
-            <Grid item style={{width:"100%"}}>
+            <Grid item style={{ width: "100%" }}>
               <MainMap />
             </Grid>
-
-            {/* Chart */}
-            <Grid item xs>
-              <Paper className={fixedHeightPaper}>
-                <Chart genData={createData} data={data} />
+            <Grid item lg>
+              <Paper>
+                <ScatterChart
+                  width={730}
+                  height={250}
+                  margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="x" name="stature" unit="cm" />
+                  <YAxis dataKey="y" name="weight" unit="kg" />
+                  <ZAxis dataKey="z" range={[64, 144]} name="score" unit="km" />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Legend />
+                  <Scatter name="A school" data={data011} fill="#8884d8" />
+                  <Scatter name="B school" data={data021} fill="#82ca9d" />
+                </ScatterChart>
               </Paper>
             </Grid>
-            <Grid item xs>
+
+            <Grid item m>
+              <Paper>
+                <RadarChart
+                  outerRadius={90}
+                  width={730}
+                  height={250}
+                  data={radarData}
+                >
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="subject" />
+                  <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                  <Radar
+                    name="Exxon"
+                    dataKey="A"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                    fillOpacity={0.6}
+                    title="O3 V.S. Stock Price"
+                  />
+                  <Radar
+                    name="US Solar"
+                    dataKey="B"
+                    stroke="#82ca9d"
+                    fill="#82ca9d"
+                    fillOpacity={0.6}
+                  />
+                  <Legend />
+                </RadarChart>
+              </Paper>
+            </Grid>
+            {/* Chart */}
+            {/* <Grid item xl>
               <Paper className={fixedHeightPaper}>
-                <Chart genData={createData} data={data} />
+                <Chart
+                  genData={createData}
+                  data={data}
+                  title="O3 V.S. Stock Price"
+                />
+              </Paper>
+            </Grid> */}
+            <Grid item m>
+              <Paper className={fixedHeightPaper}>
+                <Chart
+                  genData={createData}
+                  data={data}
+                  title="O3 vs Total Employee Count"
+                />
+              </Paper>
+            </Grid>
+            <Grid item >
+              <Paper className={fixedHeightPaper} style={{width: "30vw"}}>
+                <Chart
+                  genData={createData}
+                  data={data}
+                  title="Co2 V.S. Market Share"
+                />
+              </Paper>
+            </Grid>
+            <Grid item m>
+              <Paper className={fixedHeightPaper}>
+                <Chart
+                  genData={createData}
+                  data={data}
+                  title="Market Share V.S. Total Manufacturing Co2"
+                />
               </Paper>
             </Grid>
           </Grid>

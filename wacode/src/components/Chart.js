@@ -16,23 +16,26 @@ function createData(xname, company, emission) {
   return { xaxis: xname, c: company, e: emission };
 }
 
-const data = [
-  createData("00:00", 100, 100),
-  createData("03:00", 300, 400),
-  createData("06:00", 600, 500),
-  createData("09:00", 800, 300),
-  createData("12:00", 1500, 4500),
-  createData("15:00", 2000, 4000),
-  createData("18:00", 2400, 700),
-  createData("21:00", 2400, 0)
-];
+function genData() {
+  return ([
+    createData("00:00", Math.random(), Math.random()),
+    createData("03:00", Math.random(), Math.random()),
+    createData("06:00", Math.random(), Math.random()),
+    createData("09:00", Math.random(), Math.random()),
+    createData("12:00", Math.random(), Math.random()),
+    createData("15:00", Math.random(), Math.random()),
+    createData("18:00", Math.random(), Math.random()),
+    createData("21:00", Math.random(), Math.random())
+  ]);
+}
 
-export default function Chart() {
+export default function Chart(props) {
   const theme = useTheme();
+  let data = genData();
 
   return (
     <React.Fragment>
-      <Title>Stock Price vs CO2 Emissions</Title>
+      <Title>{props.title}</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -50,7 +53,8 @@ export default function Chart() {
             label={
               <Text x={0} y={0} dx={15} dy={100} offset={0} angle={-90}>
                 ppm/$
-              </Text>}
+              </Text>
+            }
           ></YAxis>
           <Line
             type="monotone"
