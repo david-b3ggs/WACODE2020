@@ -25,7 +25,7 @@ export async function requestAll(lon, lat, time) {
     },
     method: "get",
     port: "8080",
-    url: "http://localhost:8080/ozone/filltheus",
+    url: "http://localhost:8080/filltheus",
     params: { lon: lon, lat: lat, time: time },
   }).then(function(response) {
       //console.log(console.log(response.data));

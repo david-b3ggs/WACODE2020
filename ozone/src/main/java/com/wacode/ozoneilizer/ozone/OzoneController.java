@@ -31,18 +31,20 @@ public class OzoneController {
         time=Integer.parseInt(requestParams.get("time"));
         System.out.println(requestParams);
         //if(lat.contains(Double.parseDouble(requestParams.get("latitude"))) && lon.contains(Integer.parseInt(requestParams.get(longitude))))
-        int output = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(Double.parseDouble(requestParams.get("lon"))
-                ,Double.parseDouble(requestParams.get("lat")), 1, time, NoiseQuality.BEST));
+        double lat = Double.parseDouble(requestParams.get("lat"));
+        double lng = Double.parseDouble(requestParams.get("lon"));
+        int output = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D( lng
+                ,lat, 1, time, NoiseQuality.BEST));
 
-        return new Greeting(counter.incrementAndGet(),  Math.abs(output), String.valueOf(time));
+        return new Greeting(counter.incrementAndGet(),  Math.abs(output), String.valueOf(time), lat, lng);
     }
 
-    @GetMapping("/ozone/filltheus")
+    @GetMapping("/filltheus")
     @ResponseBody
     public List<Greeting> getAll(@RequestParam Map<String, String> requestParams){
         time = Integer.parseInt(requestParams.get("time"));
-        double lng = Double.parseDouble(requestParams.get("longitude"));
-        double lat = Double.parseDouble(requestParams.get("latitude"));
+        double lng = Double.parseDouble(requestParams.get("lon"));
+        double lat = Double.parseDouble(requestParams.get("lat"));
 
         return populate(time, lng, lat);
     }
@@ -52,11 +54,23 @@ public class OzoneController {
 
         for (int i = 0; i < 10; i++){
             for (int j = 0; j < 50; j++){
-                Integer returnInt = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(lng + 51.0/j, lat - 20.0/i, 1, t, NoiseQuality.BEST));
-                returnList.add(new Greeting( i* j, returnInt , t.toString()));
+                if (i == 0){
+                    if (j == 0){
+                        Integer returnInt = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(lng + 51.0/1, lat - 20.0/1, 1, t, NoiseQuality.BEST));
+                        returnList.add(new Greeting( i* j, Math.abs(returnInt) , t.toString(), lat - 20.0/1, lng + 51.0/1));
+                    }
+                    else {
+                        Integer returnInt = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(lng + 51.0/j, lat - 20.0/1, 1, t, NoiseQuality.BEST));
+                        returnList.add(new Greeting( i* j, Math.abs(returnInt) , t.toString(), lat - 20.0/1, lng + 51.0/j));
+                    }
+                }
+                else {
+                    Integer returnInt = (int) (100 * com.flowpowered.noise.Noise.gradientCoherentNoise3D(lng + (j*3), lat - (i*3), 1, t, NoiseQuality.BEST));
+                    returnList.add(new Greeting( i* j, Math.abs(returnInt) , t.toString(), lat - ((double)i * 1.75), lng + ((double)j + 1.25)));
+                }
+
             }
         }
-
         return returnList;
 
     }

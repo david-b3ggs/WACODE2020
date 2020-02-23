@@ -1,7 +1,7 @@
 /* global google */
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import {requestOzone} from './Request';
+import {requestOzone, requestAll} from './Request';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -18,8 +18,7 @@ class MainMap extends Component {
     constructor(props){
         super(props);
         var heatMapData;
-        this.state = {zoomScale: 3, radius: 0.5, data: heatMapData};
-        console.log(this.state);
+        this.state = {zoomScale: 3, radius: 2.2, data: heatMapData};
     }
 
     getMapOptions = {
@@ -46,6 +45,9 @@ class MainMap extends Component {
     }*/
 
       async componentDidMount() {
+        const data = await requestAll(-124.90425, 48.3979, 6);
+        console.log(data);
+
         var heatMapData = {    
             positions: [
               {lat: 55.5, lng: -80.56},
@@ -53,10 +55,16 @@ class MainMap extends Component {
               options: {radius: this.state.radius, opacity: 0.6, dissipating: false}
         }
 
-        await console.log(requestOzone(-124.90425, 48.3979, 1), "HERE");
+        for(var i = 0; i < 500; i++){
+            console.log(data.data[i].lat, data.data[i].lng);
+            heatMapData.positions.push({lat: data.data[i].lat, lng: data.data[i].lng + 6});
+
+            for (var j = 0; j < data.data[i].ozoneLevel; j++){
+                heatMapData.positions.push({lat: data.data[i].lat + 3 + Math.random() % 0.005, lng: data.data[i].lng + 4 + Math.random() % 0.9});
+            }
+        }
 
         this.setState({data: heatMapData});
-        console.log(this.state);
     }
 
     render() {
