@@ -1,7 +1,7 @@
 /* global google */
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import MenuIcon from '@material-ui/icons/Menu';
+import {requestOzone} from './Request';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -45,13 +45,15 @@ class MainMap extends Component {
         }
     }*/
 
-      componentDidMount() {
+      async componentDidMount() {
         var heatMapData = {    
             positions: [
               {lat: 55.5, lng: -80.56},
               {lat: 34.7, lng: 28.4},],
               options: {radius: this.state.radius, opacity: 0.6, dissipating: false}
         }
+
+        await console.log(requestOzone(-124.90425, 48.3979, 1), "HERE");
 
         this.setState({data: heatMapData});
         console.log(this.state);
