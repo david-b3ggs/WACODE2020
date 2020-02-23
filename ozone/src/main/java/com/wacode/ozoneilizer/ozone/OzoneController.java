@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class OzoneController {
 
-    private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
-    private double latitude = 0.0f;
-    private double longitude = 0.0f;
     private int time = (int) System.currentTimeMillis();
-    Random rand = new Random();
-    private long CurrentTime = System.currentTimeMillis();
-    private int AccessCounter = 0;
+    
 
 
 
